@@ -18,10 +18,21 @@ export function ProjectEmbed({ src }: ProjectEmbedProps) {
           src={src}
           className="h-full w-full border-0"
           title="Project preview"
+          sandbox="allow-scripts allow-same-origin allow-forms"
+          referrerPolicy="no-referrer"
         />
         <div
           className="absolute inset-0 cursor-zoom-in"
           onClick={() => setIsZoomed(true)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              setIsZoomed(true)
+            }
+          }}
+          role="button"
+          tabIndex={0}
+          aria-label="Zoom in to view project"
         />
       </div>
 
@@ -48,6 +59,8 @@ export function ProjectEmbed({ src }: ProjectEmbedProps) {
                   src={src}
                   className="h-full w-full rounded-xl border-0"
                   title="Project preview zoomed"
+                  sandbox="allow-scripts allow-same-origin allow-forms"
+                  referrerPolicy="no-referrer"
                 />
               </motion.div>
               <motion.button
@@ -56,6 +69,7 @@ export function ProjectEmbed({ src }: ProjectEmbedProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { delay: 0.3, duration: 0.1 } }}
                 exit={{ opacity: 0, transition: { duration: 0 } }}
+                aria-label="Close zoomed view"
               >
                 <XIcon className="h-5 w-5 text-zinc-500" />
               </motion.button>
