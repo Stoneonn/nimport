@@ -13,8 +13,10 @@ export function ProjectEmbed({ src }: ProjectEmbedProps) {
 
   // Handle Escape key to close modal
   useEffect(() => {
+    if (!isZoomed) return
+    
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isZoomed) {
+      if (e.key === 'Escape') {
         setIsZoomed(false)
       }
     }
