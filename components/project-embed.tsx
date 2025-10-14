@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { XIcon } from 'lucide-react'
 
@@ -10,6 +10,18 @@ type ProjectEmbedProps = {
 
 export function ProjectEmbed({ src }: ProjectEmbedProps) {
   const [isZoomed, setIsZoomed] = useState(false)
+
+  // Handle Escape key to close modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isZoomed) {
+        setIsZoomed(false)
+      }
+    }
+    
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [isZoomed])
 
   return (
     <>
@@ -45,6 +57,15 @@ export function ProjectEmbed({ src }: ProjectEmbedProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsZoomed(false)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  setIsZoomed(false)
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label="Close modal"
             />
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
               <motion.div
