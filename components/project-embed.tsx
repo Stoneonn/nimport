@@ -13,14 +13,15 @@ export function ProjectEmbed({ src }: ProjectEmbedProps) {
 
   return (
     <>
-      <div
-        className="aspect-video w-full cursor-zoom-in rounded-xl overflow-hidden"
-        onClick={() => setIsZoomed(true)}
-      >
+      <div className="relative aspect-video w-full cursor-zoom-in rounded-xl overflow-hidden">
         <iframe
           src={src}
           className="h-full w-full border-0"
           title="Project preview"
+        />
+        <div
+          className="absolute inset-0 cursor-zoom-in"
+          onClick={() => setIsZoomed(true)}
         />
       </div>
 
